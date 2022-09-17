@@ -13,12 +13,13 @@ public class RandomArray {
         System.out.println("Original");
         for (int i = 0; i < n; i++) {
             a[i] = rn.nextInt(1, 30);
-            System.out.println(a[i]);
+            System.out.print(a[i]+" ");
         }
+        System.out.println();
         Arrays.sort(a);
         System.out.println("Sorted");
         for (int i = 0; i < n; i++) {
-            System.out.println(a[i]);
+            System.out.print(a[i]+" ");
         }
     }
 }

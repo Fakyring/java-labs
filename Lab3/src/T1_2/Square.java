@@ -1,63 +1,52 @@
 package T1_2;
 
 public class Square extends Rectangle {
-    private double side;
 
     public Square() {
-        side = 5;
-        width = side;
-        height = side;
+        width = 5;
+        height = 5;
     }
 
     public Square(double sd) {
-        side = sd;
-        width = side;
-        height = side;
+        width = sd;
+        height = sd;
     }
 
     public Square(double sd, String cl) {
-        side = sd;
         color = cl;
-        width = side;
-        height = side;
+        width = sd;
+        height = sd;
     }
 
     public Square(double sd, String cl, boolean fl) {
-        side = sd;
         color = cl;
         filled = fl;
-        width = side;
-        height = side;
+        width = sd;
+        height = sd;
     }
 
     public double getSide() {
-        return side;
+        return width;
     }
 
     public void setSide(double sd) {
-        side = sd;
-        width = side;
-        height = side;
+        width = sd;
+        height = sd;
     }
 
     @Override
     public void setWidth(double width) {
-        super.setWidth(width);
-        side = width;
-        height = width;
+        super.width = width;
     }
 
     @Override
     public void setHeight(double height) {
-        super.setHeight(height);
-        side = height;
-        width = height;
+        super.height = height;
     }
 
     @Override
     public String toString() {
         return "Square {" +
-                "side=" + side +
                 ", width=" + width +
                 ", height=" + height +
                 ", color='" + color + '\'' +
