@@ -37,7 +37,6 @@ class MyMouse extends JFrame
     }
     public MyMouse()
     {
-        super("results of match");
         setLayout(null);
         setSize(400,400);
         AC.setBounds(50,80,400,60);
@@ -63,7 +62,8 @@ class MyMouse extends JFrame
         Winner.setFont(new Font("Serif", Font.PLAIN, 18));
         Winner.setHorizontalAlignment(JLabel.CENTER);
         add(Winner);
-
+        setSize(930, 400);
+        setLocationRelativeTo(null);
     }
     public static void main(String[]args)
     {
