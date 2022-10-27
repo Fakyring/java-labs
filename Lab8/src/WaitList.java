@@ -3,38 +3,38 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * Лист ожидания
- * @param <Enum>
+ *
+ * @param <E>
  */
-public class WaitList<Enum> implements IWaitList {
-    protected ConcurrentLinkedQueue<Integer> content;
+public class WaitList<E> implements IWaitList<E> {
+    protected ConcurrentLinkedQueue<E> content;
 
     public WaitList() {
         content = new ConcurrentLinkedQueue<>();
     }
 
-    public WaitList(Collection<Integer> C) {
+    public WaitList(Collection<E> C) {
         content = new ConcurrentLinkedQueue<>(C);
     }
 
     @Override
-    public void add(Object E) {
-        content.add((Integer) E);
+    public void add(E element) {
+        content.add(element);
     }
 
     @Override
-    public Enum remove() {
-        Integer x = content.poll();
-        return (Enum) x;
+    public E remove() {
+        return content.remove();
     }
 
     @Override
-    public boolean contains(Object E) {
-        return content.contains(E);
+    public boolean contains(E element) {
+        return content.contains(element);
     }
 
     @Override
-    public boolean containsAll(Collection C) {
-        return content.containsAll(C);
+    public boolean containsAll(Collection<E> c) {
+        return content.containsAll(c);
     }
 
     @Override

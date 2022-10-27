@@ -2,9 +2,9 @@ import java.util.Collection;
 
 /**
  * Ограниченный лист ожидания
- * @param <Enum>
+ * @param <E>
  */
-public class BoundedWaitList<Enum> extends WaitList {
+public class BoundedWaitList<E> extends WaitList<E> {
     private final int capacity;
 
     public BoundedWaitList(int capacity) {
@@ -15,7 +15,7 @@ public class BoundedWaitList<Enum> extends WaitList {
         return capacity;
     }
 
-    public void add(Integer element) {
+    public void add(E element) {
         if (content.size() < capacity)
             super.add(element);
     }

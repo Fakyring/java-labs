@@ -1,13 +1,13 @@
 /**
  * Лист ожидания с возможностью удалить ожидающего
- * @param <Enum>
+ * @param <E>
  */
-public class UnfairWaitList<Enum> extends WaitList {
+public class UnfairWaitList<E> extends WaitList<E> {
     public UnfairWaitList() {
     }
 
-    public Enum remove() {
-        return (Enum) super.remove();
+    public E remove() {
+        return super.remove();
     }
 
     public void moveToBack() {
