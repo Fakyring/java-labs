@@ -13,12 +13,11 @@ public class Main {
         StringTokenizer stringTokenizer = new StringTokenizer(string.toString(), " ", false);
 
         ArrayList<String> words = new ArrayList<String>();
-        int temp = stringTokenizer.countTokens();
-        for (int i = 0; i < temp; i++) {
+        int wordsCount = stringTokenizer.countTokens();
+        for (int i = 0; i < wordsCount; i++) {
             words.add(stringTokenizer.nextToken());
         }
 
-        int maxSteps = words.size();
         int step = 0;
         string = new StringBuilder();
         String last = "";
@@ -28,7 +27,7 @@ public class Main {
             words.remove(0);
         }
 
-        while (step != maxSteps && words.size() != 0) {
+        while (step != wordsCount && words.size() != 0) {
             for (int i = 0; i < words.size(); i++) {
                 if (last.toLowerCase().charAt(last.length() - 1) == words.get(i).toLowerCase().charAt(0)) {
                     string.append(" ").append(words.get(i));

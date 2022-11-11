@@ -31,9 +31,6 @@ public class CardGameDoubleList{
             firstPlayer.remove(0);
             secondPlayer.remove(0);
             counter++;
-            System.out.println("Step " + counter);
-            System.out.println(firstPlayer);
-            System.out.println(secondPlayer);
         }
         if (counter == 106) {
             System.out.println("Botva");
