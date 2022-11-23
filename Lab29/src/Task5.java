@@ -22,7 +22,7 @@ public class Task5 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String string = scanner.nextLine();
-        String regEx = "^(([1-2][0-9])|(0[0-9])|(3[0-1]))/((1[0-2])|([1-9]))/((19[0-9]{2})|(2\\d{3}))";
+        String regEx = "^(([1-2][0-9])|(0[0-9])|(3[0-1]))/((1[0-2])|(0[1-9]))/((19[0-9]{2})|(2\\d{3}))";
 
         Pattern pattern = Pattern.compile(regEx);
         Matcher matcher = pattern.matcher(string);
