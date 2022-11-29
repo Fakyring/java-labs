@@ -2,12 +2,20 @@ final class Drink extends MenuItem implements Alcoholable {
     private final double alcoholVol;
     private final DrinkTypeEnum type;
 
-    public Drink(String name, String description, int cost, double alcoholVol, int type) {
+    public Drink(String name, String description, double cost, double alcoholVol, int type) {
         this.alcoholVol = alcoholVol;
         this.type = DrinkTypeEnum.values()[type];
         this.setName(name);
         this.setDescription(description);
         this.setCost(cost);
+    }
+
+    public Drink(String name, String description) {
+        DrinkTypeEnum[] types = DrinkTypeEnum.values();
+        this.alcoholVol = Math.random() * 10;
+        this.type = types[(int) (Math.random() * types.length)];
+        this.setName(name);
+        this.setDescription(description);
     }
 
     public Drink() {

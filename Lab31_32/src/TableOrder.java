@@ -156,11 +156,15 @@ public class TableOrder implements Order {
     public void setCustomer(Customer customer) {
         this.customer = new Customer(customer);
     }
+
+    public int getSize() {
+        return size;
+    }
 }
 
 class CostComparator implements Comparator<MenuItem> {
     @Override
     public int compare(MenuItem a, MenuItem b) {
-        return b.getCost() - a.getCost();
+        return (int) (b.getCost() - a.getCost());
     }
 }

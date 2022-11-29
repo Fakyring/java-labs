@@ -14,9 +14,16 @@ public class TableOrdersManager implements OrdersManager {
     }
 
     public void addItem(MenuItem item, int tableNumber) {
-        Order order = new TableOrder();
-        order.add(item);
-        add(order, tableNumber);
+        if (tableNumber >= orders.length)
+            increaseArray(tableNumber);
+        if (orders[tableNumber] != null) {
+            orders[tableNumber].add(item);
+        } else {
+            System.out.println("sadasd");
+            Order order = new TableOrder();
+            order.add(item);
+            add(order, tableNumber);
+        }
     }
 
     public int freeTableNumber() {

@@ -1,8 +1,8 @@
 public class MenuItem {
-    private int cost;
+    private double cost;
     private String name, description;
 
-    public int getCost() {
+    public double getCost() {
         return cost;
     }
 
@@ -14,7 +14,7 @@ public class MenuItem {
         return description;
     }
 
-    public void setCost(int cost) {
+    public void setCost(double cost) {
         this.cost = cost;
     }
 
