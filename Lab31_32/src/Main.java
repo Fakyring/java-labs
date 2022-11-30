@@ -21,15 +21,15 @@ public class Main {
         iom.add(io);
         iom.add(io);
         iom.remove();
-        System.out.println(Arrays.toString(iom.getOrder()));
+        System.out.println("Getting orders: " + Arrays.toString(iom.getOrder()));
 
 
-        System.out.println(Arrays.toString(io.itemsName())); //Prints names of items from last order
-        System.out.println(io.itemsQuantity("Name")); //Count items with specific name
-        System.out.println(io.itemsQuantity(item)); //Count specific items
+        System.out.println("Items of order: " + Arrays.toString(io.itemsName())); //Prints names of items from last order
+        System.out.println("Count items with name 'Name': " + io.itemsQuantity("Name")); //Count items with specific name
+        System.out.println("Count items that are like specific item: " + io.itemsQuantity(item)); //Count specific items
         io.removeAll("Name"); //Remove all items by name
-        System.out.println(Arrays.toString(io.itemsName())); //Print all items' names
-        System.out.println(io.getCustomer().getFirstName()); //Get name of the customer
+        System.out.println("Remove all items with name 'Name': " + Arrays.toString(io.itemsName())); //Print all items' names
+        System.out.println("Get first name of order's customer: " + io.getCustomer().getFirstName()); //Get name of the customer
         System.out.println();
 
         //----------------------Table orders part of program----------------------
@@ -50,7 +50,7 @@ public class Main {
         System.out.println("Free tables number: " + Arrays.toString(tom.freeTableNumbers())); //Get all free tables numbers
         System.out.println("Total cost of orders: " + tom.ordersCostSummary()); //Get total cost of all orders
 
-        System.out.println(Arrays.toString(to.itemsName())); //Prints items' names
+        System.out.println("Items name: " + Arrays.toString(to.itemsName())); //Prints items' names
         MenuItem[] mi = to.sortedItemsByCostDesc(); //Gets sorted array
         System.out.print("Sorted items costs: ");
         for (int i = 0; i < mi.length; i++) {
@@ -58,9 +58,8 @@ public class Main {
         }
         System.out.println();
         to.remove("Name"); //Remove first element by its name
-        System.out.println(Arrays.toString(to.itemsName()));
+        System.out.println("Removed one element with name 'Name': " + Arrays.toString(to.itemsName()));
         to.removeAll("Name"); //Remove all element with given name
-        System.out.println(Arrays.toString(to.itemsName()));
-
+        System.out.println("Removed one element with name 'Name': " + Arrays.toString(to.itemsName()));
     }
 }

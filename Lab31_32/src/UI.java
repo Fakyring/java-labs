@@ -1,6 +1,4 @@
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,49 +6,53 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class UI extends JFrame {
-    public String[] tableList = new String[]{"Table 1", "Table 2", "Table 3", "Table 4",
-            "Table 5", "Table 6", "Table 7", "Table 8", "Table 9", "Table 10"};
+    public String[] tableList = new String[]{"Стол 1", "Стол 2", "Стол 3", "Стол 4",
+            "Стол 5", "Стол 6", "Стол 7", "Стол 8", "Стол 9", "Стол 10"};
     public static int WIDTH_FRAME = 520;
     public static int HEIGHT_FRAME = 440;
     private JPanel mainFrame = new JPanel(null);
     private TableOrdersManager orderManager = new TableOrdersManager();
-    private JButton addBtn = DefaultElements.customButton("Добавить", 245, 20);
-    private JButton delBtn = DefaultElements.customButton("Удалить заказ по номеру стола", 245, 20);
+    private JButton addBtn = DefaultElements.Button("Добавить", 245, 20);
+    private JButton delBtn = DefaultElements.Button("Удалить заказ по номеру стола", 245, 20);
 
-    private JLabel nameLabel = DefaultElements.customJlabel("Name", 14, 50, 18);
-    private JLabel descriptionLabel = DefaultElements.customJlabel("Description", 14, 100, 18);
-    private JLabel costLabel = DefaultElements.customJlabel("Cost", 14, 40, 18);
-    private JLabel tableLabel = DefaultElements.customJlabel("Table", 14, 45, 18);
+    private JLabel nameLabel = DefaultElements.Jlabel("Название", 14, 70, 18);
+    private JLabel descriptionLabel = DefaultElements.Jlabel("Описание", 14, 70, 18);
+    private JLabel costLabel = DefaultElements.Jlabel("Стоимость", 14, 80, 18);
+    private JLabel tableLabel = DefaultElements.Jlabel("Стол", 14, 45, 18);
 
-    private JTextField nameTextField = DefaultElements.customJTextField();
-    private JTextField descriptionTextField = DefaultElements.customJTextField();
-    private JTextField costTextField = DefaultElements.customJTextField();
-    private JTextField tableTextField = DefaultElements.customJTextField();
-    private JLabel errorLabel = DefaultElements.customError("", 495, 100);
+    private JTextField nameTextField = DefaultElements.JTextField();
+    private JTextField descriptionTextField = DefaultElements.JTextField();
+    private JTextField costTextField = DefaultElements.JTextField();
+    private JTextField tableTextField = DefaultElements.JTextField();
+    private JLabel errorLabel = DefaultElements.Error("", 495, 100);
 
     private JScrollPane tableScroll;
-    private JScrollPane dishScroll;
+    private JScrollPane drinkScroll;
 
-    private void event() {
+    private void buttonsActions() {
         addBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 StringBuilder stringBuilder = new StringBuilder();
                 MenuItem drink = new Drink(nameTextField.getText(), descriptionTextField.getText());
+                if (nameTextField.getText().length() == 0 || descriptionTextField.getText().length() == 0) {
+                    stringBuilder.append("Отсутствует название и/или описание<br>");
+                }
                 if (costTextField.getText().length() != 0 && costTextField.getText().matches("[0-9]+(.[0-9]*)?")) {
                     drink.setCost(Double.parseDouble(costTextField.getText()));
                 } else {
-                    stringBuilder.append("Не верная стоимость<br>");
+                    stringBuilder.append("Неверная стоимость<br>");
                 }
                 if (tableTextField.getText().matches("[1-9]+")) {
                     int tableNumber = Integer.parseInt(tableTextField.getText());
                     if (tableNumber > 0 && tableNumber <= 10) {
-                        orderManager.addItem(drink, tableNumber);
+                        if (stringBuilder.length() == 0)
+                            orderManager.addItem(drink, tableNumber);
                     } else {
-                        stringBuilder.append("Не верный стол<br>");
+                        stringBuilder.append("Неверный стол<br>");
                     }
                 } else {
-                    stringBuilder.append("Не верный стол<br>");
+                    stringBuilder.append("Неверный стол<br>");
                 }
                 errorLabel.setText("<html>" + stringBuilder.toString() + "</html>");
                 if (stringBuilder.length() == 0) {
@@ -71,17 +73,17 @@ public class UI extends JFrame {
                     if (tableNumber > 0 && tableNumber <= 10) {
                         orderManager.remove(tableNumber);
                     } else {
-                        stringBuilder.append("Не верный стол\n");
+                        stringBuilder.append("Неверный стол\n");
                     }
                 } else {
-                    stringBuilder.append("Не верный стол\n");
+                    stringBuilder.append("Неверный стол\n");
                 }
                 errorLabel.setText(stringBuilder.toString());
             }
         });
     }
 
-    private void tableView() {
+    private void tablesInfo() {
         JList<String> list = new JList<String>(tableList);
 
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -92,11 +94,12 @@ public class UI extends JFrame {
                     // Получение элемента
                     int selected = list.locationToIndex(e.getPoint());
                     String drinksInfo = "";
-                    if (orderManager.freeTableNumber() == 0 || orderManager.getOrder(selected + 1) == null) {
+                    if (orderManager.getOrder().length <= selected + 1 || orderManager.getOrder()[selected + 1] == null) {
                         content.setText("Заказа нет");
                     } else {
+                        content.setText("");
                         MenuItem[] drinks = orderManager.getOrder(selected + 1).getItems();
-                        TableOrder order = (TableOrder)orderManager.getOrder(selected+1);
+                        TableOrder order = (TableOrder) orderManager.getOrder(selected + 1);
                         for (int i = 0; i < order.getSize(); i++) {
                             content.append("Drink{ cost: " + drinks[i].getCost() + ", name: " + drinks[i].getName() + " desc: " + drinks[i].getDescription()
                                     + ", type: " + ((Drink) drinks[i]).getType() + "}\n");
@@ -106,7 +109,7 @@ public class UI extends JFrame {
             }
         });
         tableScroll = new JScrollPane(list);
-        dishScroll = new JScrollPane(content);
+        drinkScroll = new JScrollPane(content);
     }
 
     private void grid() {
@@ -130,16 +133,16 @@ public class UI extends JFrame {
         tableScroll.setLocation(5, 195);
         tableScroll.setSize(140, 200);
 
-        dishScroll.setLocation(150, 195);
-        dishScroll.setSize(350, 200);
+        drinkScroll.setLocation(150, 195);
+        drinkScroll.setSize(350, 200);
     }
 
     public UI() {
         super("Orders");
 
-        tableView();
+        tablesInfo();
         grid();
-        event();
+        buttonsActions();
         mainFrame.add(addBtn);
         mainFrame.add(delBtn);
 
@@ -153,8 +156,9 @@ public class UI extends JFrame {
         mainFrame.add(tableTextField);
         mainFrame.add(errorLabel);
 
-        mainFrame.add(dishScroll);
+        mainFrame.add(drinkScroll);
         mainFrame.add(tableScroll);
+        mainFrame.setBackground(Color.decode("#323232"));
         getContentPane().add(mainFrame);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -170,50 +174,41 @@ public class UI extends JFrame {
 }
 
 class DefaultElements {
-    public static JButton customButton(String title, int width, int height) {
+    public static JButton Button(String title, int width, int height) {
         JButton newButton = new JButton();
         newButton.setSize(width, height);
+        newButton.setBackground(Color.decode("#787777"));
         newButton.setText(title);
-        newButton.setBackground(Color.decode("#D9D9D9"));
+        newButton.setForeground(Color.white);
         newButton.setFocusPainted(false);
-        newButton.setFont(new Font("Inter", 0, 12));
+        newButton.setFont(new Font(Font.SANS_SERIF, 0, 12));
         return newButton;
     }
 
-    public static JLabel customJlabel(String title, int fontSize, int width, int height) {
+    public static JLabel Jlabel(String title, int fontSize, int width, int height) {
         JLabel newJlabel = new JLabel(title);
         newJlabel.setSize(width, height);
-        newJlabel.setFont(new Font("Inter", 0, fontSize));
+        newJlabel.setForeground(Color.white);
+        newJlabel.setFont(new Font(Font.SANS_SERIF, 0, fontSize));
+        return newJlabel;
+    }
+
+    public static JLabel Error(String title, int width, int height) {
+        JLabel newJlabel = new JLabel(title);
+        newJlabel.setSize(width, height);
+        newJlabel.setBackground(Color.decode("#787777"));
+        newJlabel.setFont(new Font(Font.SANS_SERIF, 0, 12));
+        newJlabel.setForeground(Color.orange);
         newJlabel.setOpaque(true);
         return newJlabel;
     }
 
-    public static JLabel customError(String title, int width, int height) {
-        JLabel newJlabel = new JLabel(title);
-        newJlabel.setSize(width, height);
-        newJlabel.setFont(new Font("Inter", 0, 12));
-        newJlabel.setBackground(Color.decode("#D9D9D9"));
-        newJlabel.setForeground(Color.red);
-        newJlabel.setOpaque(true);
-        return newJlabel;
-    }
-
-    public static JTextField customJTextField() {
+    public static JTextField JTextField() {
         JTextField newJTextField = new JTextField();
         newJTextField.setSize(120, 20);
-        newJTextField.setBackground(Color.decode("#D9D9D9"));
-        newJTextField.setFont(new Font("Inter", 0, 12));
-        newJTextField.setMargin(new Insets(0, 5, 0, 10));
+        newJTextField.setBackground(Color.decode("#787777"));
+        newJTextField.setForeground(Color.white);
+        newJTextField.setFont(new Font(Font.SANS_SERIF, 0, 12));
         return newJTextField;
-    }
-
-    public static JTextArea customJTextArea(int width, int height) {
-        JTextArea newJTextArea = new JTextArea();
-        newJTextArea.setSize(width, height);
-        newJTextArea.setBackground(Color.decode("#D9D9D9"));
-        newJTextArea.setFont(new Font("Inter", 0, 14));
-        newJTextArea.setForeground(Color.black);
-        newJTextArea.setMargin(new Insets(0, 10, 0, 10));
-        return newJTextArea;
     }
 }

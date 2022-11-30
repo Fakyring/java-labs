@@ -19,7 +19,6 @@ public class TableOrdersManager implements OrdersManager {
         if (orders[tableNumber] != null) {
             orders[tableNumber].add(item);
         } else {
-            System.out.println("sadasd");
             Order order = new TableOrder();
             order.add(item);
             add(order, tableNumber);
